@@ -63,6 +63,25 @@ app.get("/cadastro", (req, res) => {
     res.sendFile(__dirname + '/cadastro.html')
 })
 
+app.post("/registro", (req, res) => {
+    const username = req.body.user
+    const password = req.body.senha
+
+    //passo 4 para conexao de sql
+    // **ficar bem atento com essa parte, em questão dos nomes e sintaxe
+    db.query('insert into User (username, password) values = ?, ?', [username, password], (error, results) => { // entre '' é a sintaxe do workbanch
+        
+                if (error) {
+                    console.log('Erro ao inserir usuário',error);
+                    
+                } else {
+                    console.log('senha autenticada')
+                    res.sendFile(__dirname+ '/login.html')
+                }
+            });
+        }
+    );
+
 app.listen(port, () => {
     console.log(`Servidor rodando no endereço:http://localhost:${port}`);
 });
